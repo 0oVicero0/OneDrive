@@ -22,6 +22,6 @@ elif [[ "$1" == 'personal' ]]; then
 TYPE='Personal'
 Install;
 else
-echo -n "bash $0 [personal|business]";
+echo "bash $0 [personal|business]";
 fi
 
