@@ -2,13 +2,15 @@
 
 [ -L "$0" ] && { 
 work_path=$(readlink "$0") 
+work_name=$(basename "$work_path")
 work_path=$(dirname "$work_path") 
 } || { 
+work_name=$(basename "$0") 
 work_path=$(dirname "$0") 
 }
 
+export script_base_name=$work_name
 export script_base_folder=$work_path
-export script_base_name=$(basename "$0")
 
 source "${script_base_folder}/onedrive.cfg"
 source "${script_base_folder}/onedrive-base"
