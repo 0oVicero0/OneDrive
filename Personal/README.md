@@ -29,7 +29,7 @@ Please insert these values in the matching variables in `onedrive.cfg`:
 
 After the initial configuration you must authorize the app to use your OneDrive account. Run
 
-    $ ./onedrive-authorize
+    $ onedrive -a
 
 and follow the steps. You will need a web browser.
 
@@ -41,25 +41,25 @@ Usage (OneDrive Personal)
 
 To upload a single file simply type
 
-    $ ./onedrive file1
+    $ onedrive file1
 
 You can also upload multiple files, either by explicitly specifying each one
 
-    $ ./onedrive file1 file2
+    $ onedrive file1 file2
 
 or just use wildcards (globbing)
 
-    $ ./onedrive file*.png
+    $ onedrive file*.png
 
 You can also specify a destination folder relative to the root folder configured in `onedrive.cfg`:
 
-    $ ./onedrive -f "relative/path" file1
+    $ onedrive -f "relative/path" file1
 
 This command will automatically determine all of the needed folder ids and recursively create all subfolders that do not yet exist.
 
 If you need your file to be uploaded with a different filename, you can activate the renaming mode:
 
-    $ ./onedrive -r ./file1.txt renamed_file1.txt ./file2.txt renamed_file2.txt
+    $ onedrive -r ./file1.txt renamed_file1.txt ./file2.txt renamed_file2.txt
 
 Be aware that for each file you specify you must provide the remote filename as the subsequent parameter. This feature can lead to an unexpected behavior when combined with wildcards (globbing) because the pathname expansion is performed by bash before the execution of the script.
 
