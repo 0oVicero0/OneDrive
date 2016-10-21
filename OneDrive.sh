@@ -25,4 +25,4 @@ else
 echo "bash $0 [personal|business]";
 fi
 
-rm -rf OneDrive.sh
+rm -rf $(basename "$0")
