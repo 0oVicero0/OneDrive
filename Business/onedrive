@@ -38,7 +38,7 @@ while [[ $# -ge 1 ]]; do
             echo "                     For each file you specify you MUST also specify"
             echo "                     the remote filename as the subsequent parameter"
             echo "                     Be especially careful with globbing!"
-            echo " -s, --silent        Silent mode for use in crontab scripts." 
+            echo "  -s, --silent       Silent mode for use in crontab scripts." 
             echo "                     Return only exit code."
             exit 0
             ;;
