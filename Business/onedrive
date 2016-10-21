@@ -28,7 +28,7 @@ while [[ $# -ge 1 ]]; do
             echo ""
             echo "Options:"
             echo "  -d, --debug        Enable debug mode"
-            echo "  -a, --authorize    Enable debug mode"
+            echo "  -a, --authorize    Run authorization process"
             echo "  -f, --folder       Upload files into this remote folder"
             echo "                     Directory names are separated with a slash, e.g."
             echo "                     rootFolder/subFolder"
