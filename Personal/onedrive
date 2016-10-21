@@ -1,6 +1,13 @@
 #!/bin/bash
 
-export script_base_folder=$(dirname "$0")
+[ -L "$0" ] && { 
+work_path=$(readlink "$0") 
+work_path=$(dirname "$work_path") 
+} || { 
+work_path=$(dirname "$0") 
+}
+
+export script_base_folder=$work_path
 export script_base_name=$(basename "$0")
 
 source "${script_base_folder}/onedrive.cfg"
