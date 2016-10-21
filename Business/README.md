@@ -61,25 +61,25 @@ Usage (OneDrive for Business)
 
 To upload a single file simply type
 
-    $ ./onedriveb-upload file1
+    $ ./onedrive file1
 
 You can also upload multiple files, either by explicitly specifying each one
 
-    $ ./onedriveb-upload file1 file2
+    $ ./onedrive file1 file2
 
 or just use wildcards (globbing)
 
-    $ ./onedriveb-upload file*.png
+    $ ./onedrive file*.png
 
 You can also specify a destination folder relative to the root folder configured in `onedrive.cfg`:
 
-    $ ./onedriveb-upload -f "relative/path" file1
+    $ ./onedrive -f "relative/path" file1
 
 This command will automatically determine all of the needed folder ids and recursively create all subfolders that do not yet exist.
 
 If you need your file to be uploaded with a different filename, you can activate the renaming mode:
 
-    $ ./onedriveb-upload -r ./file1.txt renamed_file1.txt ./file2.txt renamed_file2.txt
+    $ ./onedrive -r ./file1.txt renamed_file1.txt ./file2.txt renamed_file2.txt
 
 Be aware that for each file you specify you must provide the remote filename as the subsequent parameter. This feature can lead to an unexpected behavior when combined with wildcards (globbing) because the pathname expansion is performed by bash before the execution of the script.
 
@@ -102,7 +102,7 @@ Unfortunately, you can't get item ID in this way for OneDrive for Business. So u
 
     Upload in debug mode any file to non-existent folder, which will be used as root folder.
 
-    ./onedriveb-upload -d -f Backup testfile
+    ./onedrive -f Backup testfile
     2016-08-26 09:33:56 Searching for 'Backup' in ''
     2016-08-26 09:33:56 Creating folder 'Backup' in ''
     2016-08-26 09:33:58 api_folder_id is now '01KB37ZVWEMG6F4SS6TVGZAM7ACZKOEERY'
