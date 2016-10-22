@@ -16,6 +16,7 @@ source "${script_base_folder}/onedrive.cfg"
 source "${script_base_folder}/onedrive-base"
 
 export json_parser="${script_base_folder}/json-parser"
+export time_start=$(date +"%s")
 export simple_debug=1
 export debug_mode=0
 export rename_mode=0
