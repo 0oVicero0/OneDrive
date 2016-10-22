@@ -24,8 +24,8 @@ function debug() {
 
 function simpledebug() {
 	if [ "${debug_mode}" == "0" -o "${simple_debug}" == "1" ] ; then
-		local timestamp=$(date +"%H:%M:%S")
-		echo -ne "\r${timestamp} $1" >&2
+                time_now=$(date +%s)
+		echo -ne "\rTIME:$[${time_now}-${time_start}]s $1" >&2
 	fi
 }
 
