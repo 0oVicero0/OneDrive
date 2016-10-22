@@ -4,6 +4,7 @@ get_json_value="cut -d= -f2-"
 curl_opts="--silent --retry ${http_retries} --retry-delay 10"
 
 function error() {
+        echo ""
 	echo "$1" >&2
 	exit 1
 }
@@ -425,6 +426,7 @@ function onedrive_upload_file() {
 	done
 
 	if [ "${status_code}" == "200" ] || [ "${status_code}" == "201" ]; then
+	        echo ""
 		echo "Successfully uploaded '${file}' as '${remote_filename}'"
 	else
 		error "An error has occurred while uploading '${file}' (Code: ${status_code})"
