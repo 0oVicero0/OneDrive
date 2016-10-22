@@ -178,7 +178,7 @@ function curl_upload_chunk() {
 
 	debug "Content-Length: ${current_range_length}"
 	debug "Content-Range: bytes ${current_range_start}-${current_range_end}/${filesize}"
-	simpledebug "[${current_range_start}/${filesize}] bytes upload, [$[${filesize}-${current_range_start}]] remain."
+	simpledebug "[${current_range_start}/${filesize}] bytes upload, [$[${filesize}-${current_range_start}]] bytes remain."
 
 	dd if="${file}" count=1 skip=$2 bs=${max_chunk_size} 2>/dev/null | curl \
 		${curl_opts} \
