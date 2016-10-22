@@ -16,6 +16,7 @@ source "${script_base_folder}/onedrive.cfg"
 source "${script_base_folder}/onedrive-base"
 
 export json_parser="${script_base_folder}/json-parser"
+export simple_debug=1
 export debug_mode=0
 export rename_mode=0
 export auth_mode=0
@@ -50,6 +51,7 @@ while [[ $# -ge 1 ]]; do
             ;;
         -d|--debug)
             shift
+	    simple_debug=0
             debug_mode=1
             ;;
         -a|--authorize)
