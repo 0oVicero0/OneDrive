@@ -78,7 +78,7 @@ function parse_value() {
 				case "$c" in
 					'"') # String end if not in escape mode, normal character otherwise
 						[ "$current_escaping" == "0" ] && output_entry "$current_path" "$current_varvalue" && return
-						[ "$current_escaping" == "1" ] && current_varvalue="$current_varvalue$c"
+						[ "$current_escaping" == "1" ] && current_varvalue="$current_varvalue$c" && current_escaping=0
 						;;
 					'\') # Escape character, entering or leaving escape mode
 						current_escaping=$((1-current_escaping))

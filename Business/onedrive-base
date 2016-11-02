@@ -5,7 +5,6 @@ get_json_value="cut -d= -f2-"
 curl_opts="--silent --retry ${http_retries} --retry-delay 10"
 
 function error() {
-        echo ""
 	echo "$1" >&2
 	exit 1
 }
@@ -28,9 +27,9 @@ function simpledebug() {
                 time_now=$(date +%s)
                 time_used=$[${time_now}-${time_start}]
                 if [ ${time_used} != "0" -a ${current_range_start} != "0" ]; then
-                       time_remain=$[$[${filesize}-${current_range_start}]*${time_used}/${current_range_start}]
-                       percernt_finish=`awk 'BEGIN{ printf "%.2f%",('${current_range_start}'/'${filesize}')*100 }'`
-                       [ ${time_remain} -eq "0" ] && time_remain='-'
+                            time_remain=$[$[${filesize}-${current_range_start}]*${time_used}/${current_range_start}]
+                            percernt_finish=`awk 'BEGIN{ printf "%.2f%",('${current_range_start}'/'${filesize}')*100 }'`
+                            [ ${time_remain} -eq "0" ] && time_remain='-'
                 else
                        time_remain='-'
                 fi
@@ -86,6 +85,19 @@ function curl_find_subfolder() {
 		--header "Authorization: Bearer ${api_access_token}" \
 		--header "Accept: application/json; odata.metadata=none" \
 		--data-urlencode "select=id" \
+		"${url}" | "${json_parser}"
+}
+
+# $1=item path
+function curl_list_items() {
+	local item_path=$(urlencode "$1")
+	local url="${api_uri}/drive/root:/$item_path?expand=children(select=lastModifiedDateTime,size,name,folder,file)"
+
+	curl \
+		${curl_opts} \
+		--get \
+		--header "Authorization: Bearer ${api_access_token}" \
+		--header "Accept: application/json; odata.metadata=none" \
 		"${url}" | "${json_parser}"
 }
 
@@ -342,6 +354,65 @@ function onedrive_create_folder() {
 	echo "${api_parsed_json_result}" | grep -E "^id=" | ${get_json_value}
 }
 
+# $1=folder name
+function onedrive_list_items() {
+	local api_access_token
+	local total_folder_items=0
+	local item_name
+	local item_timestamp
+	local item_size
+	local item_type
+	local total_files=0
+	local total_file_size=0
+	
+	api_access_token=$(onedrive_acquire_access_token ${api_resource_id})
+	exit_on_error
+
+	local api_parsed_json_result=$(curl_list_items "$1")
+
+	if [ -n "$(echo "${api_parsed_json_result}" | grep -E "^error")" ]
+	then
+	    echo "${api_parsed_json_result}"
+	    return 1;
+	fi	
+		    
+	if [ -n "$(echo "${api_parsed_json_result}" | grep -E "^folder")" ] 
+	then
+	    [[ ! $1 || $1 == / ]] && echo "root folder contents" || echo "$1 folder contents"
+	    total_folder_items=$(echo "${api_parsed_json_result}" | grep -E "^folder.childCount" | ${get_json_value})
+
+	    if [ -z "${total_folder_items}" ] 
+	    then
+		echo "no items found"
+		return 1;
+	    else
+		for i in `seq 0 $((total_folder_items-1))`;
+		do
+	    	    item_name=$(echo "${api_parsed_json_result}" | grep -E "^children.${i}.name" | ${get_json_value})
+	    	    item_timestamp=$(echo "${api_parsed_json_result}" | grep -E "^children.${i}.lastModifiedDateTime" | ${get_json_value})
+	    	    if [ -n "$(echo "${api_parsed_json_result}" | grep -E "^children.${i}.folder")" ]
+	    	    then
+	    		item_type='d'
+	    		item_size=$(echo "${api_parsed_json_result}" | grep -E "^children.${i}.folder.childCount" | ${get_json_value})
+	    	    elif [ -n "$(echo "${api_parsed_json_result}" | grep -E "^children.${i}.file")" ]
+		    then
+	    		item_type=' '
+	    		item_size=$(echo "${api_parsed_json_result}" | grep -E "^children.${i}.size" | ${get_json_value})
+	    		let "total_files+=1"
+	    		let "total_file_size+=item_size"
+	    	    fi
+		    printf "%s %s  %s\t%12d\t%s\n" "${item_timestamp%T*}" "${item_timestamp: -9:5}" "${item_type}" "${item_size}" "${item_name}"
+		done
+	    fi
+	    echo -e "\ttotal number of items ${total_folder_items}"
+	    echo -e "\ttotal ${total_file_size} bytes in ${total_files} file(s)"
+	elif [ -n "$(echo "${api_parsed_json_result}" | grep -E "^file")" ]
+	then
+	    item_url=$(echo "${api_parsed_json_result}" | grep -E "^@content.downloadUrl" | ${get_json_value})
+	    printf "%s" "${item_url}"
+	fi
+}
+
 # $@=path array
 function onedrive_get_or_create_folder() {
 	local api_access_token
@@ -478,7 +549,6 @@ function onedrive_upload_file() {
 
 	if [ "${status_code}" == "200" ] || [ "${status_code}" == "201" ]; then
 		if [ "${silent_mode}" == "0" ]; then
-		        echo ""
 			echo "Successfully uploaded '${file}' as '${remote_filename}'"
 		fi
 	else
