@@ -91,6 +91,11 @@ export api_uri
 export api_resource_id 
 
 if [ "${link_mode}" == "1" ]; then
+PRINTF=`which printf 2> /dev/null`
+if [ $? -ne 0 ] ; then
+    PRINTF="printf"
+fi
+export PRINTF
 function list_folder() {
     source "${script_base_folder}/onedrive-base"
 

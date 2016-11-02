@@ -402,7 +402,7 @@ function onedrive_list_items() {
 	    		let "total_files+=1"
 	    		let "total_file_size+=item_size"
 	    	    fi
-		    printf "%s %s  %s\t%12d\t%s\n" "${item_timestamp%T*}" "${item_timestamp: -9:5}" "${item_type}" "${item_size}" "${item_name}"
+		    eval '$PRINTF "%s %s  %s\t%12d\t%b\n" "${item_timestamp%T*}" "${item_timestamp: -9:5}" "${item_type}" "${item_size}" "${item_name}"'
 		done
 	    fi
 	    echo -e "\ttotal number of items ${total_folder_items}"
@@ -410,7 +410,7 @@ function onedrive_list_items() {
 	elif [ -n "$(echo "${api_parsed_json_result}" | grep -E "^file")" ]
 	then
 	    item_url=$(echo "${api_parsed_json_result}" | grep -E "^@content.downloadUrl" | ${get_json_value})
-	    printf "%s" "${item_url}"
+	    eval '$PRINTF "%s" "${item_url}"'
 	fi
 }
 
