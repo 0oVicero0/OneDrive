@@ -27,7 +27,7 @@ Before you can use this tool, create an application in the [Microsoft Azure Mana
     10. Now open your new application and select Configure tab
     11. Change "Reply URL" field to https://onedrive.live.com/about/business/
     12. Add an application key. Select 1 year key, 2 years key will not work. Press Save and copy the generated Secret
-    13. Also copy your "Client ID"
+    13. Also copy your "Application ID"
     14. In a "Permissions to other applications" press "Add application"
     15. Select "Office 365 SharePoint Online" and "Windows Azure Active Directory"
     16. Grant "Sign in and read user profile" delegated permission to "Windows Azure Active Directory"
@@ -36,7 +36,7 @@ Before you can use this tool, create an application in the [Microsoft Azure Mana
     
 Afterwards you should have three components of authorization process:
 
-    Client ID: a66d1076-4c04-4a33-3bb2-2578c4891886
+    Application ID: a66d1076-4c04-4a33-3bb2-2578c4891886
     Secret: x73LaIRCimtjiiw/cuHA000Ozwcf4nz1Ovcpi0xUCHI=
     Reply URL: https://onedrive.live.com/about/business/
 
