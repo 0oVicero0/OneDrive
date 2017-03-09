@@ -4,13 +4,13 @@
 
 #Install-[OneDrive for Personal]
 ```
-wget --no-check-certificate -q -O OneDrive.sh "https://raw.githubusercontent.com/0oVicero0/OneDrive/master/OneDrive.sh?token=AKo0rJwREqx_VfuEK7MzN150kVkhivHRks5YIDShwA==" && chmod +x OneDrive.sh && bash OneDrive.sh personal
+bash -c "$(wget --no-check-certificate -q -O OneDrive.sh "https://raw.githubusercontent.com/0oVicero0/OneDrive/master/OneDrive.sh") -c "personal"
 
 ```
 
 #Install-[OneDrive for Business]
 ```
-wget --no-check-certificate -q -O OneDrive.sh "https://raw.githubusercontent.com/0oVicero0/OneDrive/master/OneDrive.sh?token=AKo0rJwREqx_VfuEK7MzN150kVkhivHRks5YIDShwA==" && chmod +x OneDrive.sh && bash OneDrive.sh business 
+bash -c "$(wget --no-check-certificate -q -O OneDrive.sh "https://raw.githubusercontent.com/0oVicero0/OneDrive/master/OneDrive.sh") -c "business"
 
 ```
 
