@@ -4,13 +4,13 @@
 
 #Install-[OneDrive for Personal]
 ```
-bash -c "$(wget --no-check-certificate -q -O- "https://raw.githubusercontent.com/0oVicero0/OneDrive/master/OneDrive.sh")" -c "personal"
+wget --no-check-certificate -q -O "https://raw.githubusercontent.com/0oVicero0/OneDrive/master/OneDrive.sh" && bash "personal"
 
 ```
 
 #Install-[OneDrive for Business]
 ```
-bash -c "$(wget --no-check-certificate -q -O- "https://raw.githubusercontent.com/0oVicero0/OneDrive/master/OneDrive.sh")" -c "business"
+wget --no-check-certificate -q -O "https://raw.githubusercontent.com/0oVicero0/OneDrive/master/OneDrive.sh" && bash "business"
 
 ```
 
