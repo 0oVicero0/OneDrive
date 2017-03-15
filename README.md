@@ -16,7 +16,7 @@ onedrive -a
 ```
 onedrive --help
 
-#######################################################
+#####################################################################
 Usage: onedrive [OPTIONS] file1 [file2...]
 
 Options:
@@ -35,5 +35,7 @@ Options:
                      Return only exit code.
   -l, --list         Show the itmes in this directory.
       --link         Show the file share link.
+      
+#####################################################################
       
 ```
