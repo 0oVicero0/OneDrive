@@ -84,6 +84,12 @@ if [ "${auth_mode}" == "1" ]; then
         exit 0
 fi
 
+if [ ! -f  "${script_base_folder}/.refresh_token" ]; then
+        echo -e "\n\033[04mIt does not seem to be authorized.\033[0m\n"
+        bash "${script_base_folder}/onedrive-authorize"
+        exit 0
+fi
+
 curl_discover_uri
 exit_on_error
 
