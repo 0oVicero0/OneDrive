@@ -1,13 +1,13 @@
 #!/bin/bash
 
-[ -L "$0" ] && { 
-work_path=$(readlink "$0") 
-work_name=$(basename "$work_path")
-work_path=$(dirname "$work_path") 
-} || { 
-work_name=$(basename "$0") 
-work_path=$(dirname "$0") 
-}
+if [ -L "$0" ]; then
+    work_path=$(readlink "$0") 
+    work_name=$(basename "$work_path")
+    work_path=$(dirname "$work_path") 
+else
+    work_name=$(basename "$0") 
+    work_path=$(dirname "$0") 
+fi
 
 export script_base_name=$work_name
 export script_base_folder=$work_path
@@ -43,8 +43,8 @@ while [[ $# -ge 1 ]]; do
             echo "                     Be especially careful with globbing!"
             echo "  -s, --silent       Silent mode for use in crontab scripts." 
             echo "                     Return only exit code."
-            echo "  -l, --list         Show the itmes in this directory."
-            echo "      --link         Show the file share link."
+            echo "  -ls,--list         Show the itmes in this directory."
+            echo "  -l, --link         Show the file share link."
             exit 0
             ;;
         -f|--folder)
@@ -56,7 +56,7 @@ while [[ $# -ge 1 ]]; do
             shift
             rename_mode=1
             ;;
-        -l|--list|--link)
+        -ls|--list|-l|--link)
             shift
             link_mode=1
             ;;
@@ -106,17 +106,16 @@ if [ "${link_mode}" == "1" ]; then
 	    PRINTF="printf"
         fi
     fi
-export PRINTF
+    export PRINTF
 
-function list_folder() {
-    source "${script_base_folder}/onedrive-base"
+    function list_folder() {
+        source "${script_base_folder}/onedrive-base"
+        onedrive_list_items "$1"
+    }
+    export -f list_folder
 
-    onedrive_list_items "$1"
-}
-export -f list_folder
-
-printf "%s\0" "${@}" | xargs -0 -n2 bash -c 'list_folder "$1"' bash
-exit 0
+    printf "%s\0" "${@}" | xargs -0 -n2 bash -c 'list_folder "$1"' bash
+    exit 0
 fi
 
 if [ -z "$1" ]; then
