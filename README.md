@@ -33,8 +33,8 @@ Options:
                      Be especially careful with globbing!
   -s, --silent       Silent mode for use in crontab scripts.
                      Return only exit code.
-  -l, --list         Show the itmes in this directory.
-      --link         Show the file share link.
+  -ls,--list         Show the itmes in this directory.
+  -l, --link         Show the file share link.
       
 #####################################################################
       
