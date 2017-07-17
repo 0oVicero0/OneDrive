@@ -2,7 +2,7 @@ api_auth_url="https://login.microsoftonline.com/common/oauth2/token"
 api_discovery_url="https://api.office.com/discovery/v2.0/me/services"
 api_discovery_id="https://api.office.com/discovery/"
 get_json_value="cut -d= -f2-"
-curl_opts="--silent --retry ${http_retries} --retry-delay 10"
+curl_opts="--silent --retry ${http_retries} --retry-delay 10 -g"
 
 function error() {
         echo -e "\n"
