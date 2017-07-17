@@ -29,7 +29,7 @@ while [[ $# -ge 1 ]]; do
     case $1 in
         -h|--help)
             echo "Usage: ${script_base_name} [OPTIONS] file1 [file2...]"
-            echo "       ${script_base_name} floder"
+            echo "       ${script_base_name}-d floder"
             echo ""
             echo "Options:"
             echo "  -d, --debug        Enable debug mode"
