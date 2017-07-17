@@ -7,7 +7,6 @@ function get_local_folder() {
     for local_name in `ls -1 .`
       do
         if [[ -d $local_name ]]; then
-          eval "${script_base_folder}/onedrive" -c \'$local_name\'
           eval cd \'$local_name\'
           get_local_folder;
           cd ..
