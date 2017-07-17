@@ -9,7 +9,7 @@ wget --no-check-certificate -q -O onedrive-d "https://raw.githubusercontent.com/
 wget --no-check-certificate -q -O onedrive-authorize "https://raw.githubusercontent.com/0oVicero0/OneDrive/master/Business/onedrive-authorize"
 wget --no-check-certificate -q -O onedrive-base "https://raw.githubusercontent.com/0oVicero0/OneDrive/master/Business/onedrive-base"
 wget --no-check-certificate -q -O onedrive.cfg "https://raw.githubusercontent.com/0oVicero0/OneDrive/master/Business/onedrive.cfg"
-chmod -R +x /usr/local/etc/OneDrive
+chmod -R a+x /usr/local/etc/OneDrive
 ln -sf /usr/local/etc/OneDrive/onedrive /usr/local/bin/
 ln -sf /usr/local/etc/OneDrive/onedrive-d /usr/local/bin/
 
