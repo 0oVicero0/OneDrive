@@ -1,16 +1,8 @@
 #!/bin/bash
 
-if [ -L "$0" ]; then
-    work_path=$(readlink "$0") 
-    work_name=$(basename "$work_path")
-    work_path=$(dirname "$work_path") 
-else
-    work_name=$(basename "$0") 
-    work_path=$(dirname "$0") 
-fi
-
-export script_base_name=$work_name
-export script_base_folder=$work_path
+exec_path=$(readlink -f "$0")
+export script_base_name=$(basename "$exec_path")
+export script_base_folder=$(dirname "$exec_path") 
 
 source "${script_base_folder}/onedrive.cfg"
 source "${script_base_folder}/onedrive-base"

@@ -1,18 +1,25 @@
 #!/bin/bash
-script_base_folder=$(dirname "$0")
-[ ! -e "${script_base_folder}/onedrive" ] && echo 'Error! Not found 'onedrive'' && exit 1
+
+exec_path=$(readlink -f "$0")
+export script_base_folder=$(dirname "$exec_path")
+
+if [ ! -e "${script_base_folder}/onedrive" ]; then
+  echo "Error! Not found 'onedrive'."
+  exit 1
+fi
 
 function get_local_folder() {
     IFS=$'\n'
     for local_name in `ls -1 .`
       do
-        if [[ -d $local_name ]]; then
+        if [[ -d "${local_name}" ]]; then
           eval cd \'$local_name\'
           get_local_folder;
           cd ..
         else
-          local_folder_name_tmp="$(echo "$(pwd)" |sed 's|'$local_folder_pre'||' |sed 's|^/||')"
-          eval "${script_base_folder}/onedrive" -f \'$local_folder_name_tmp\' \'$local_name\'
+          local_folder_name="$(echo "$(pwd)" |sed 's|'$local_folder_base'||' |sed 's|^/||')"
+          eval "${script_base_folder}/onedrive" -c \'$local_folder_name\'
+          eval "${script_base_folder}/onedrive" -f \'$local_folder_name\' \'$local_name\'
         fi
       done
     }
@@ -21,7 +28,5 @@ local_folder="$1"
 dir -d "${local_folder}" >/dev/null 2>&1;
 [ $? -ne '0' ] && echo 'Error! Not access to the folder.' && exit 1
 cd "${local_folder}"
-local_folder_pre=`dirname "$(pwd)"`
-local_folder_base=`basename "$(pwd)"`
-eval "${script_base_folder}/onedrive" -c \'$local_folder_base\'
+local_folder_base="$(dirname "${local_folder}")"
 get_local_folder;

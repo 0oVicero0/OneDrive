@@ -29,7 +29,7 @@ function simpledebug() {
                 time_used=$[${time_now}-${time_start}]
                 if [ ${time_used} != "0" -a ${current_range_start} != "0" ]; then
                             time_remain=$[$[${filesize}-${current_range_start}]*${time_used}/${current_range_start}]
-                            percernt_finish=`awk 'BEGIN{ printf "%.2f%",('${current_range_start}'/'${filesize}')*100 }'`
+                            percernt_finish=`awk 'BEGIN{ printf "%.2f%%",('${current_range_start}'/'${filesize}')*100 }'`
                             [ ${time_remain} -eq "0" ] && time_remain='-'
                 else
                        time_remain='-'
