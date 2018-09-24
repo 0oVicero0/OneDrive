@@ -116,7 +116,7 @@ if [ "${link_mode}" == "1" ]; then
     export -f list_folder
 
     printf "%s\0" "${@}" | xargs -0 -n2 bash -c 'list_folder "$1"' bash
-    exit 0
+    echo && exit 0
 fi
 
 if [ -n "${folder_name}" ]; then
