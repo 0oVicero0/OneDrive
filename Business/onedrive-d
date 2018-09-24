@@ -10,7 +10,7 @@ fi
 
 function get_local_folder() {
     IFS=$'\n'
-    for local_name in `ls -1 .`
+    for local_name in `ls -A1 .`
       do
         if [[ -d "${local_name}" ]]; then
           eval cd \'$local_name\'

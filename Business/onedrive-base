@@ -30,10 +30,11 @@ function simpledebug() {
                 if [ ${time_used} != "0" -a ${current_range_start} != "0" ]; then
                             time_remain=$[$[${filesize}-${current_range_start}]*${time_used}/${current_range_start}]
                             percernt_finish=`awk 'BEGIN{ printf "%.2f%%",('${current_range_start}'/'${filesize}')*100 }'`
-                            [ ${time_remain} -eq "0" ] && time_remain='-'
+                            [ "${time_remain}" == "0" ] && time_remain='-'
                 else
                        time_remain='-'
                 fi
+		[ -n "${percernt_finish}" ] || percernt_finish='0%'
 		echo -ne "\r${percernt_finish} | TIME:${time_used}s | REMAIN TIME:${time_remain}s | $1 " >&2
 	fi
 }
@@ -107,12 +108,15 @@ function curl_list_items() {
 function curl_create_folder() {
 	local json_payload="{\"name\":\"$2\",\"folder\":{},\"@name.conflictBehavior\":\"fail\"}"
 	local url
+         local parent_folder_name
 
 	if [ -z "$1" ]; then
 		url="${api_uri}/drive/${api_root_folder}/children?select=id"
+		parent_folder_name="${api_root_folder}"
 	else
 		local folder_id=$(urlencode "$1")
 		url="${api_uri}/drive/items/${folder_id}/children?select=id"
+		parent_folder_name="$1"
 	fi
 
 	curl \
@@ -125,7 +129,7 @@ function curl_create_folder() {
 		"${url}" | "${json_parser}"
 
 	if [ "${PIPESTATUS[0]}" != "0" ]; then
-		error "Could not create folder '$2' in '$1'"
+		error "Could not create folder '$2' in '$parent_folder_name'"
 	fi
 }
 
@@ -551,8 +555,7 @@ function onedrive_upload_file() {
 
 	if [ "${status_code}" == "200" ] || [ "${status_code}" == "201" ]; then
 		if [ "${silent_mode}" == "0" ]; then
-		        echo -e "\n"
-			echo "Successfully uploaded '${file}' as '${remote_filename}'"
+			echo -ne "\nSuccessfully uploaded '${file}' as '${remote_filename}'"
 		fi
 	else
 		error "An error has occurred while uploading '${file}' (Code: ${status_code})"
