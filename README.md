@@ -1,8 +1,7 @@
 # [OneDrive for Business on Bash]
 
 -------------------------------------------------------------------------
-使用方法:     
-请参照该文章       
+详细说明：         
 https://moeclub.org/2017/07/07/304/       
 
 -------------------------------------------------------------------------
@@ -13,12 +12,12 @@ https://moeclub.org/2017/07/07/304/
 
 -------------------------------------------------------------------------
 UPDATE:
-默认添加 应用密钥; 开箱即用.
+默认添加应用密钥; 开箱即用.
 -------------------------------------------------------------------------
 
 # Install
 ```
-wget --no-check-certificate -q -O /tmp/OneDrive.sh "https://raw.githubusercontent.com/0oVicero0/OneDrive/master/OneDrive.sh" && bash /tmp/OneDrive.sh
+wget --no-check-certificate -qO- "https://raw.githubusercontent.com/0oVicero0/OneDrive/master/OneDrive.sh" |bash
 
 ```
 # Authorize
