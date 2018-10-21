@@ -17,7 +17,7 @@ function get_local_folder() {
           get_local_folder;
           cd ..
         else
-          local_folder_name="$(echo "$(pwd)" |sed 's|'$local_folder_base'||' |sed 's|^/||')"
+          local_folder_name="$(readlink -f ./ |sed 's|'$local_folder_base'||' |sed 's|^/||')"
           eval "${script_base_folder}/onedrive" -c \'$local_folder_name\'
           eval "${script_base_folder}/onedrive" -f \'$local_folder_name\' \'$local_name\'
         fi
