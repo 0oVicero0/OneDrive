@@ -28,5 +28,5 @@ local_folder="$1"
 dir -d "${local_folder}" >/dev/null 2>&1;
 [ $? -ne '0' ] && echo 'Error! Not access to the folder.' && exit 1
 cd "${local_folder}"
-local_folder_base="$(dirname "${local_folder}")"
+local_folder_base="$(dirname $(readlink -f ./))"
 get_local_folder;
