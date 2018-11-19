@@ -20,8 +20,8 @@ while [[ $# -ge 1 ]]; do
     esac
 done
 
-local_folder="$(echo "$local_folder" |sed 's/[[:space:]]*//g')";
-folder_name="$(echo "$folder_name" |sed 's/[[:space:]]*//g' |sed 's/^\///' |sed 's/\/$//')";
+local_folder="$(echo "$local_folder" |sed 's/^[[:space:]]*\|[[:space:]]*$//g')";
+folder_name="$(echo "$folder_name" |sed 's/^[[:space:]]*\|[[:space:]]*$//g' |sed 's/^\///' |sed 's/\/$//')";
 
 function error_msg() {
     echo "$1";
@@ -61,7 +61,7 @@ if [[ -d "${local_folder}" ]]; then
     error_msg "Error! Not access to the folder.";
   fi
   cd "${local_folder}";
-  local_folder_base="$(dirname $(readlink -f ./))";
+  local_folder_base="$(dirname "$(readlink -f ./)")";
   get_local_folder;
 elif [[ -f "${local_folder}" ]]; then
   eval "${script_base_folder}/onedrive" \'$local_folder\';
