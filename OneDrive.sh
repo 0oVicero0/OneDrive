@@ -15,6 +15,7 @@ ln -sf /usr/local/etc/OneDrive/onedrive-d /usr/local/bin/
 [ -d /usr/local/etc/OneDrive.bak ] && {
 [ -f /usr/local/etc/OneDrive.bak/onedrive.cfg ] && cp -rf /usr/local/etc/OneDrive.bak/onedrive.cfg /usr/local/etc/OneDrive/
 [ -f /usr/local/etc/OneDrive.bak/.refresh_token ] && cp -rf /usr/local/etc/OneDrive.bak/.refresh_token /usr/local/etc/OneDrive/
+rm -rf /usr/local/etc/OneDrive.bak
 }
 
 rm -rf $(basename "$0")
